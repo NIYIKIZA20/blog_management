@@ -45,7 +45,14 @@ const createBlog = async(req: IRequestBlog, res: Response) => {
         })
 
     } catch (error) {
-console.log(error)
+        const { message, stack } = error as Error;
+        ResponseService({
+            res,
+            data: stack,
+            message,
+            status: 500,
+            success: false
+        });
     }
 }
 interface GetBlogByIdRequestInterface extends Request{
