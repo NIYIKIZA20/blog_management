@@ -50,26 +50,70 @@ export class UserController implements UserControllerImplementation {
                 })
     }
     }
+    public async getUserById(req: Request, res: Response) {
+        try {
+            const { id } = req.params;
+            const user = await UserModel.findById(id);
+            if (!user) {
+                return ResponseService({
+                    res,
+                    data: null,
+                    status: 404,
+                    message: "User not found"
+                });
+            }
+            ResponseService({
+                data: user,
+                res,
+                status: 200,
+                message: "User retrieved successfully"
+            });
+        } catch (error) {
+            const { message, stack } = error as Error;
+            ResponseService({
+                res,
+                data: stack,
+                message,
+                status: 500,
+                success: false
+            });
+        }
+    }
     
     public async getAllUsers(req: Request, res: Response){
-    try {
+    //     try {
+    //         const users: UserInterface[] = await UserModel.find();
+    //         if (users.length === 0) {
+    //             return ResponseService({
+    //                 res,
+    //                 data: null,
+    //                 status: 404,
+    //                 message: "No users found"
+    //             });
+    //         }
+    //         ResponseService({
+    //             data: users,
+    //             res,
+    //             status: 200,
+    //             message: "Users retrieved successfully"
+    //         });
         
-    } catch (error) {
-        const { message, stack } = error as Error
-        ResponseService({
-            res,
-            data: stack,
-            message,
-            status: 500,
-            success: false
-        })
-    }
+    // } catch (error) {
+    //     const { message, stack } = error as Error
+    //     ResponseService({
+    //         res,
+    //         data: stack,
+    //         message,
+    //         status: 500,
+    //         success: false
+    //     })
+    // }
     }
     
     public async loginUser(req: Request, res: Response) {
         try {
             const { email, password } = req.body;
-            const user = await UserModel.findOne({ email });
+            const user = await UserModel.findOne({ email: email.toLowerCase() });
             if (!user) {
                 return ResponseService({
                     res,
