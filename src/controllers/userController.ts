@@ -8,6 +8,7 @@ import bcrypt from "bcryptjs";
 
 
 
+
 export class UserController implements UserControllerImplementation {
 
     public async createUser(req: CreateUserRequest, res: Response) {
@@ -115,6 +116,7 @@ export class UserController implements UserControllerImplementation {
         try {
             const { email, password } = req.body;
             const user = await UserModel.findOne({ email: email.toLowerCase() });
+            //or const useExist = await UserModal.exists({ email: email.tolowerCase()})
             if (!user) {
                 return ResponseService({
                     res,
@@ -123,12 +125,12 @@ export class UserController implements UserControllerImplementation {
                     message: "Invalid email or password"
                 });
             }
-            const isMatch = bcrypt.compare(password, user.password as string);
+            const isMatch = bcrypt.compareSync(password, user.password as string);
             if (!isMatch) {
                 return ResponseService({
                     res,
                     data: null,
-                    status: 400,
+                    status: 401,
                     message: "Invalid email or password"
                 });
             }

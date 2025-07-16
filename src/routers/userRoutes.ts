@@ -2,6 +2,7 @@ import { Router } from "express";
 import { ValidationMiddleware } from "../middleware/validationMiddleware";
 import { UserCreationValidation, UserLoginValidation } from "../schemas/userSchemaValidation";
 import { UserController } from "../controllers/userController";
+import { authMiddleware } from "../middleware/authMiddleware";
 
 
 const userRouter = Router();
@@ -17,7 +18,7 @@ userRouter.get('/users/:id', ValidationMiddleware({
     type: 'params',
     schema: UserCreationValidation
 }),
-    controller.getUserById.bind(controller));
+controller.getUserById.bind(controller));
 
 userRouter.post(
     '/users/login',
@@ -27,6 +28,6 @@ userRouter.post(
     }),
     controller.loginUser.bind(controller)
 );
-userRouter.get('/users', controller.getAllUsers)
+userRouter.get('/users', authMiddleware, controller.getAllUsers)
 
 export {userRouter}
