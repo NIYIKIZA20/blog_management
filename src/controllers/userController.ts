@@ -5,6 +5,8 @@ import { CreateUserRequest, UserControllerImplementation, UserInterface } from "
 import { ResponseService } from "../utils/response";
 import { generateToken } from "../utils/helper";
 import bcrypt from "bcryptjs";
+import { AuthRequest } from "../middleware/authMiddleware";
+import { ObjectId } from "mongoose";
 
 
 
@@ -82,23 +84,34 @@ export class UserController implements UserControllerImplementation {
         }
     }
     
-    public async getAllUsers(req: Request, res: Response){
+    public async getAllUsers(req: AuthRequest, res: Response){
         try {
-            const users: UserInterface[] = await UserModel.find();
-            if (users.length === 0) {
-                return ResponseService({
-                    res,
-                    data: null,
-                    status: 404,
-                    message: "No users found"
-                });
-            }
+
+            const userId = (req?.user?.id) as string;
+            const user = await UserModel.findOne({ _id: userId as unknown as ObjectId })
             ResponseService({
-                data: users,
-                res,
+                res, 
+                data: user,
                 status: 200,
-                message: "Users retrieved successfully"
-            });
+                message: 'user successfully loged'
+            })
+
+
+            // const users: UserInterface[] = await UserModel.find();
+            // if (users.length === 0) {
+            //     return ResponseService({
+            //         res,
+            //         data: null,
+            //         status: 404,
+            //         message: "No users found"
+            //     });
+            // }
+            // ResponseService({
+            //     data: users,
+            //     res,
+            //     status: 200,
+            //     message: "Users retrieved successfully"
+            // });
         
     } catch (error) {
         const { message, stack } = error as Error
