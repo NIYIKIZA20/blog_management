@@ -8,5 +8,10 @@ export const UserCreationValidation = joi.object({
     name: joi.string().required(),
     email: joi.string().email().required(),
     password: joi.string().min(6),
-    gender:joi.string().valid(...Object.values(GenderEnum))
-})
+    gender: joi.string().valid(...Object.values(GenderEnum))
+});
+
+export const UserLoginValidation = joi.object({
+    email: joi.string().email().required(),
+    password: joi.string().required()
+});

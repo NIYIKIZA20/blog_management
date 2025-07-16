@@ -7,6 +7,7 @@ import { generateToken } from "../utils/helper";
 import bcrypt from "bcryptjs";
 
 
+
 export class UserController implements UserControllerImplementation {
 
     public async createUser(req: CreateUserRequest, res: Response) {
@@ -81,33 +82,33 @@ export class UserController implements UserControllerImplementation {
     }
     
     public async getAllUsers(req: Request, res: Response){
-    //     try {
-    //         const users: UserInterface[] = await UserModel.find();
-    //         if (users.length === 0) {
-    //             return ResponseService({
-    //                 res,
-    //                 data: null,
-    //                 status: 404,
-    //                 message: "No users found"
-    //             });
-    //         }
-    //         ResponseService({
-    //             data: users,
-    //             res,
-    //             status: 200,
-    //             message: "Users retrieved successfully"
-    //         });
+        try {
+            const users: UserInterface[] = await UserModel.find();
+            if (users.length === 0) {
+                return ResponseService({
+                    res,
+                    data: null,
+                    status: 404,
+                    message: "No users found"
+                });
+            }
+            ResponseService({
+                data: users,
+                res,
+                status: 200,
+                message: "Users retrieved successfully"
+            });
         
-    // } catch (error) {
-    //     const { message, stack } = error as Error
-    //     ResponseService({
-    //         res,
-    //         data: stack,
-    //         message,
-    //         status: 500,
-    //         success: false
-    //     })
-    // }
+    } catch (error) {
+        const { message, stack } = error as Error
+        ResponseService({
+            res,
+            data: stack,
+            message,
+            status: 500,
+            success: false
+        })
+    }
     }
     
     public async loginUser(req: Request, res: Response) {
