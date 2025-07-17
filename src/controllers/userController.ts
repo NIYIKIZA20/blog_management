@@ -84,10 +84,11 @@ export class UserController implements UserControllerImplementation {
         }
     }
     
-    public async getAllUsers(req: AuthRequest, res: Response){
+    public async getUserByToken(req: AuthRequest, res: Response){
         try {
 
             const userId = (req?.user?.id) as string;
+        
             const user = await UserModel.findOne({ _id: userId as unknown as ObjectId })
             ResponseService({
                 res, 
@@ -107,6 +108,8 @@ export class UserController implements UserControllerImplementation {
         })
     }
     }
+
+
     
     public async loginUser(req: Request, res: Response) {
         try {

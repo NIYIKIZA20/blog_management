@@ -11,6 +11,6 @@ export interface CreateUserRequest extends Request{
 }
 export interface UserControllerImplementation {
     createUser(req: CreateUserRequest, res: Response):void
-    getAllUsers(req: Request, res: Response): void
+    getUserByToken(req: Request, res: Response): void
     loginUser(req: Request, res: Response):void
 }

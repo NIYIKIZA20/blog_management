@@ -13,8 +13,6 @@ const db_url = (): string => {
     return uri?.replace("<db_username>", db_username).replace("<db_password>", db_password) as string
 }
 
-
-
 export async function run() {
     
         const client = mongoose.connect(db_url(), {
