@@ -101,4 +101,17 @@ const getABlog = async (req: GetBlogByIdRequestInterface, res: Response) => {
     }
 }
 
+export const updateBlog = async (req: Request, res: Response) => {
+    const { blogId } = req.params;
+    const updates = req.body;
+    const blog = await blogModel.findByIdAndUpdate(blogId, updates, { new: true });
+    res.json(blog);
+};
+
+export const deleteBlog = async (req: Request, res: Response) => {
+    const { blogId } = req.params;
+    await blogModel.findByIdAndDelete(blogId);
+    res.json({ message: 'Blog deleted.' });
+};
+
     export { getAllBlogs,createBlog,getABlog }

@@ -1,8 +1,5 @@
 export interface CommentInterface {
-    author: {
-        type
-    },
-    blog: {
-
-    }
+   blog: string, 
+    user: string, 
+    content: string
 }
