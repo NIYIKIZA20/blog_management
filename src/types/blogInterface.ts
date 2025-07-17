@@ -3,7 +3,9 @@ export interface BlogInterface{
     slug:string
     title: string
     author: string
-    content:string
+    content: string
+    // likes?: Array<T>
+    // comments?: Array<T>
     isPublished: boolean
     description: string
     createdAt: string

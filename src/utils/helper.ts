@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 config();
 const JWT_SECRET = process.env.JWT_SECRET || "helloSolvit";
 
-const uri = "mongodb+srv://jbniyikiza20:<db_password>@cluster0.n58gzhx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = "mongodb+srv://jbniyikiza20:vF6alcaY2OtQ2rhf@cluster0.z4t0wjv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 const db_url = (): string => {
     const db_username = process.env.USERNAME as string
     const db_password = process.env.PASSWORD as string

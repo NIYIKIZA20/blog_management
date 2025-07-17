@@ -4,9 +4,12 @@ import { blogModel } from "../models/blogModal";
 import { Request, Response } from 'express'
 import { generateSlug } from "../utils/helper";
 import { ObjectId } from "mongodb";
+import { UserModel } from "../models/userModel";
+import { AuthRequest } from "../middleware/authMiddleware";
+
 const getAllBlogs = async(req: Request, res: Response) => {
     try {
-        const blogs =await  blogModel.find();
+        const blogs =await  blogModel.find().populate('author');
         console.log(blogs)
         
         ResponseService({
@@ -20,23 +23,28 @@ const getAllBlogs = async(req: Request, res: Response) => {
         res.status(500).json({ message, stack })
     }
 }
-interface IRequestBlog extends Request {
+
+interface IRequestBlog extends AuthRequest {
     body: interfaceAddBlog
 }
 const createBlog = async(req: IRequestBlog, res: Response) => {
     try {
-        const { title, description, author,content, isPublished } = req.body
+       const _id = req?.user?.id as string
+        const author = await UserModel.findOne({
+            _id
+        })
+        const { title, description, content, isPublished } = req.body
         const blog = new blogModel({
             title,
             description,
             content,
-            slug:generateSlug(title),
+            slug: generateSlug(title),
             author,
-            role: 'user',
             isPublished,
-            createdAt:new Date()
+            createdAt: new Date(),
+            updatedAt: new Date(),
         })
-     await  blog.save();
+        await blog.save();
         ResponseService({
             data: blog,
             success: true,
@@ -44,6 +52,7 @@ const createBlog = async(req: IRequestBlog, res: Response) => {
             status: 201,
             res
         })
+    
 
     } catch (error) {
         const { message, stack } = error as Error;
