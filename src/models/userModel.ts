@@ -11,6 +11,7 @@ const UserSchema = new Schema({
     password: String,
     isActive: Boolean,
     gender: String,
+    role: String,
     createdAt: {
         type: Date,
         default: new Date()

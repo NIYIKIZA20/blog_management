@@ -8,10 +8,9 @@ import bcrypt from "bcryptjs";
 import { AuthRequest } from "../middleware/authMiddleware";
 import { ObjectId } from "mongoose";
 
-
-
-
 export class UserController implements UserControllerImplementation {
+
+    
 
     public async createUser(req: CreateUserRequest, res: Response) {
     try {
@@ -32,6 +31,7 @@ export class UserController implements UserControllerImplementation {
             email,
             password:await hashPassword(password),
             name,
+            role: 'user',
             gender,
             isActive: true,
             createdAt:new Date()
@@ -84,7 +84,7 @@ export class UserController implements UserControllerImplementation {
         }
     }
     
-    public async getUserByToken(req: AuthRequest, res: Response){
+    public async getAllUsers(req: AuthRequest, res: Response){
         try {
 
             const userId = (req?.user?.id) as string;
@@ -109,8 +109,6 @@ export class UserController implements UserControllerImplementation {
     }
     }
 
-
-    
     public async loginUser(req: Request, res: Response) {
         try {
             const { email, password } = req.body;

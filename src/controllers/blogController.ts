@@ -32,6 +32,7 @@ const createBlog = async(req: IRequestBlog, res: Response) => {
             content,
             slug:generateSlug(title),
             author,
+            role: 'user',
             isPublished,
             createdAt:new Date()
         })

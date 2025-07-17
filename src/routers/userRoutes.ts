@@ -28,6 +28,6 @@ userRouter.post(
     }),
     controller.loginUser.bind(controller)
 );
-userRouter.get('/users', authMiddleware, controller.getUserByToken) // get user by token 
+userRouter.get('/users', authMiddleware, controller.getAllUsers) 
 
 export {userRouter}
