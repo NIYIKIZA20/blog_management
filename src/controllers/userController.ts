@@ -95,23 +95,6 @@ export class UserController implements UserControllerImplementation {
                 status: 200,
                 message: 'user successfully loged'
             })
-
-
-            // const users: UserInterface[] = await UserModel.find();
-            // if (users.length === 0) {
-            //     return ResponseService({
-            //         res,
-            //         data: null,
-            //         status: 404,
-            //         message: "No users found"
-            //     });
-            // }
-            // ResponseService({
-            //     data: users,
-            //     res,
-            //     status: 200,
-            //     message: "Users retrieved successfully"
-            // });
         
     } catch (error) {
         const { message, stack } = error as Error
