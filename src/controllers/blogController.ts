@@ -30,7 +30,7 @@ interface IRequestBlog extends AuthRequest {
 }
 const createBlog = async(req: IRequestBlog, res: Response) => {
     try {
-       const _id = req?.user?.id as string
+       const _id = req?.user?._id as string
         const author = await UserModel.findOne({
             _id
         })

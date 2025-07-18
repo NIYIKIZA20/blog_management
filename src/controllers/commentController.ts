@@ -8,7 +8,7 @@ import { AuthRequest } from '../middleware/authMiddleware';
 export const postComment = async (req:AuthRequest , res: Response) => {
     const { blogId } = req.params;
     const { content } = req.body;
-    const userId = req.user?.id; 
+    const userId = req.user?._id; 
 
     const user = await UserModel.findById(userId);
     if (!user || user.role !== 'normal user') {

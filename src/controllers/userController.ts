@@ -87,7 +87,7 @@ export class UserController implements UserControllerImplementation {
     public async getAllUsers(req: AuthRequest, res: Response){
         try {
 
-            const userId = (req?.user?.id) as string;
+            const userId = (req?.user?._id) as string;
         
             const user = await UserModel.findOne({ _id: userId as unknown as ObjectId })
             ResponseService({
