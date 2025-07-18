@@ -31,7 +31,7 @@ export class UserController implements UserControllerImplementation {
             email,
             password:await hashPassword(password),
             name,
-            role: 'user',
+            role: 'normal user',
             gender,
             isActive: true,
             createdAt:new Date()

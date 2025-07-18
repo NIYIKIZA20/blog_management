@@ -7,6 +7,7 @@ import { ObjectId } from "mongodb";
 import { UserModel } from "../models/userModel";
 import { AuthRequest } from "../middleware/authMiddleware";
 
+
 const getAllBlogs = async(req: Request, res: Response) => {
     try {
         const blogs =await  blogModel.find().populate('author');
@@ -114,4 +115,27 @@ export const deleteBlog = async (req: Request, res: Response) => {
     res.json({ message: 'Blog deleted.' });
 };
 
+
+
+
+export const getBlogWithDetails = async (req: Request, res: Response) => {
+    const { blogId } = req.params;
+    const blog = await blogModel.findById(blogId)
+        .populate('comments') // Populates comments array
+        .populate({
+            path: 'comments',
+            populate: { path: 'user', select: 'name email role' } // Populates user in each comment
+        })
+        .exec();
+
+    if (!blog) {
+        return res.status(404).json({ message: 'Blog not found' });
+    }
+
+    // Optionally, get likes count or populate likes
+    // If you use a Like model:
+    // const likes = await LikeModel.countDocuments({ blog: blogId });
+
+    res.json(blog);
+};
     export { getAllBlogs,createBlog,getABlog }

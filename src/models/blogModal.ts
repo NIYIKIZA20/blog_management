@@ -22,6 +22,7 @@ const blogModelSchema = new Schema<BlogSchemaInterface> ({
         type: mongoose.Types.ObjectId,
         ref: 'User'
     },
+    //comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     isPublished: Boolean,
     createdAt: Date,
     updatedAt: {

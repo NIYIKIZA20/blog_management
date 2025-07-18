@@ -4,8 +4,6 @@ export interface BlogInterface{
     title: string
     author: string
     content: string
-    // likes?: Array<T>
-    // comments?: Array<T>
     isPublished: boolean
     description: string
     createdAt: string
