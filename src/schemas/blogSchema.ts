@@ -3,8 +3,8 @@ export const AddBlogSchema = joi.object({
     title: joi.string().required(),
     description: joi.string().min(20).required(),
     author: joi.string().required(),
-    // comments: joi.array().items(joi.string()),
-    // likes: joi.array().items(joi.boolean()),
+    comments: joi.array().items(joi.string()).optional(),
+    likes: joi.array().items(joi.boolean()).optional(),
     isPublished: joi.boolean().required(),
     content:joi.string()
 })
